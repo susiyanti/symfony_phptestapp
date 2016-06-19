@@ -6,6 +6,7 @@
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
             <link rel="stylesheet" href="{{ asset('vendor/fontawesome/css/font-awesome.min.css') }}">
+            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -14,6 +15,8 @@
         {% block javascripts %}
             <script src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
             <script src="{{ asset("vendor/bootstrap/js/bootstrap.min.js") }}"></script>
+            <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js">
+            </script>
         {% endblock %}
     </body>
 </html>

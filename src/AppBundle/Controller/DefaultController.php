@@ -36,7 +36,11 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getRepository('AppBundle:User');
         $users = $em->findAll();
-        $response = $this->createApiResponse($users, 201);
+        $data = array("users"=>array());
+        foreach ($users as $u) {
+            $data['users'][] = $this->serialize($u);
+        }
+        $response = $this->createApiResponse($data, 200);
         return $response;
     }
 
@@ -47,18 +51,21 @@ class DefaultController extends Controller
     public function newAction(Request $request)
     {
         $user = new User();
-       // $form = $this->createForm(new UserType(), $user);
-        $form = $this->createFormBuilder($user)
-            ->add('uuid', TextType::class)
-            ->add('nama', TextType::class)
-            ->add('alamat', TextType::class)
-            ->getForm();
-        $this->processForm($request, $form);
+        //$form = $this->createForm(new UserType(), $user);
+//        $form = $this->createFormBuilder($user)
+  //          ->add('uuid', TextType::class)
+    //        ->add('nama', TextType::class)
+      //      ->add('alamat', TextType::class)
+        //    ->getForm();
+        //$this->processForm($request, $form);
 
        // if(!$form->isValid()){
          //   $this->throwApiProblemValidationException($form);
         //}
-        
+//        $data = $request->query->get("nama");
+        $user->setNama($request->request->get("nama"));
+        $user->setAlamat($request->request->get("alamat"));
+        $user->setUuid($request->request->get("uuid"));
         $em = $this ->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
@@ -70,7 +77,7 @@ class DefaultController extends Controller
     private function processForm(Request $request, FormInterface $form)
     {
         $data = json_decode($request->getContent(), true);
-
+        //$data = $request->getContent();
         if($data === null){
             $apiProblem = new ApiProblem(400, ApiProblem::TYPE_INVALID_REQUEST_BODY_FORMAT);
             throw new ApiProblemException($apiProblem);
