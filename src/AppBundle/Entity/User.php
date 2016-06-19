@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Created by PhpStorm.
  * User: susiyanti
@@ -12,13 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="battle_user")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @ORM\Entity()
  */
 class User
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -37,4 +37,54 @@ class User
      * @ORM\Column(type="string")
      */
     private $alamat;
+
+    /**
+     * @return mixed
+     */
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param mixed $uuid
+     */
+    public function setUuid($uuid)
+    {
+        $this->uuid = $uuid;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNama()
+    {
+        return $this->nama;
+    }
+
+    /**
+     * @param mixed $nama
+     */
+    public function setNama($nama)
+    {
+        $this->nama = $nama;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAlamat()
+    {
+        return $this->alamat;
+    }
+
+    /**
+     * @param mixed $alamat
+     */
+    public function setAlamat($alamat)
+    {
+        $this->alamat = $alamat;
+    }
+    
+    
 }
